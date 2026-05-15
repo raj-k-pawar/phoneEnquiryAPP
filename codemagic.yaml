@@ -1,8 +1,7 @@
 workflows:
 
   # ══════════════════════════════════════════════
-  # WORKFLOW 1 — Android Debug APK
-  # No signing needed — quickest way to get APK
+  # WORKFLOW 1 — Android Debug APK (no signing)
   # ══════════════════════════════════════════════
   android-debug-apk:
     name: "Android Debug APK"
@@ -42,7 +41,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@gmail.com      # ← CHANGE THIS to your email
+          - your-email@gmail.com      # ← CHANGE THIS
         notify:
           success: true
           failure: true
@@ -50,7 +49,6 @@ workflows:
 
   # ══════════════════════════════════════════════
   # WORKFLOW 2 — Android Release APK (Signed)
-  # Upload keystore in Codemagic → Code Signing
   # ══════════════════════════════════════════════
   android-release-apk:
     name: "Android Release APK (Signed)"
@@ -61,7 +59,7 @@ workflows:
       flutter: 3.24.5
       java: 17
       android_signing:
-        - janki_keystore              # Must match name in Codemagic → Code Signing
+        - janki_keystore
 
     cache:
       cache_paths:
@@ -167,7 +165,6 @@ workflows:
 
   # ══════════════════════════════════════════════
   # WORKFLOW 4 — iOS IPA
-  # Requires Apple Developer account
   # ══════════════════════════════════════════════
   ios-release:
     name: "iOS Release IPA"
