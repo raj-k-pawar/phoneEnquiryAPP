@@ -1,0 +1,41 @@
+name: janki_agro_tourism
+description: Janki Agro Tourism - Phone Enquiry Management App
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Local Database
+  sqflite: ^2.3.0
+  path: ^1.8.3
+  
+  # UI Components
+  table_calendar: ^3.0.9
+  intl: ^0.18.1
+  google_fonts: ^6.1.0
+  flutter_staggered_animations: ^1.1.1
+  
+  # Utils
+  shared_preferences: ^2.2.2
+  crypto: ^3.0.3
+  uuid: ^4.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
