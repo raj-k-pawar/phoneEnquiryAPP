@@ -21,11 +21,13 @@ class AuthProvider extends ChangeNotifier {
       final user = await ApiService.login(username, password);
       _user = user;
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(AppConstants.keyToken,    user.token);
-      await prefs.setString(AppConstants.keyRole,     user.role);
-      await prefs.setInt   (AppConstants.keyUserId,   user.id);
-      await prefs.setString(AppConstants.keyUserName, user.name);
-      await prefs.setString(AppConstants.keyUsername,  user.username);
+      if (user != null) {
+          await prefs.setString(AppConstants.keyToken, user.token);
+          await prefs.setString(AppConstants.keyRole, user.role);
+          await prefs.setInt(AppConstants.keyUserId, user.id);
+          await prefs.setString(AppConstants.keyUserName, user.name);
+          await prefs.setString(AppConstants.keyUsername, user.username);
+        }
       _loading = false; notifyListeners();
       return true;
     } catch (e) {
