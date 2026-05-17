@@ -1,6 +1,3 @@
-Replace your entire `lib/services/api_service.dart` file with this:
-
-```dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
