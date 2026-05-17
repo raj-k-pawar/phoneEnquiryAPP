@@ -1,3 +1,4 @@
+```dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -8,6 +9,9 @@ import '../models/models.dart';
 class ApiService {
   static const Duration _timeout = Duration(seconds: 20);
 
+  // ─────────────────────────────────────────────
+  // POST
+  // ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> _post(
     String url,
     Map<String, dynamic> body,
@@ -15,6 +19,10 @@ class ApiService {
     try {
       final res = await http.post(
         Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0',
+        },
         body: body,
       ).timeout(_timeout);
 
@@ -39,11 +47,29 @@ class ApiService {
     }
   }
 
+  // ─────────────────────────────────────────────
+  // GET
+  // ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> _get(String url) async {
     try {
       final res = await http.get(
         Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0',
+        },
       ).timeout(_timeout);
+
+      print("GET URL: $url");
+      print("STATUS: ${res.statusCode}");
+      print("BODY: ${res.body}");
+
+      if (res.body.trim().startsWith('<')) {
+        return {
+          'success': false,
+          'message': 'Server returned HTML instead of JSON'
+        };
+      }
 
       return jsonDecode(res.body);
 
@@ -55,6 +81,9 @@ class ApiService {
     }
   }
 
+  // ─────────────────────────────────────────────
+  // PUT
+  // ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> _put(
     String url,
     Map<String, dynamic> body,
@@ -62,8 +91,23 @@ class ApiService {
     try {
       final res = await http.put(
         Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0',
+        },
         body: body,
       ).timeout(_timeout);
+
+      print("PUT URL: $url");
+      print("STATUS: ${res.statusCode}");
+      print("BODY: ${res.body}");
+
+      if (res.body.trim().startsWith('<')) {
+        return {
+          'success': false,
+          'message': 'Server returned HTML instead of JSON'
+        };
+      }
 
       return jsonDecode(res.body);
 
@@ -75,11 +119,29 @@ class ApiService {
     }
   }
 
+  // ─────────────────────────────────────────────
+  // DELETE
+  // ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> _delete(String url) async {
     try {
       final res = await http.delete(
         Uri.parse(url),
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'Mozilla/5.0',
+        },
       ).timeout(_timeout);
+
+      print("DELETE URL: $url");
+      print("STATUS: ${res.statusCode}");
+      print("BODY: ${res.body}");
+
+      if (res.body.trim().startsWith('<')) {
+        return {
+          'success': false,
+          'message': 'Server returned HTML instead of JSON'
+        };
+      }
 
       return jsonDecode(res.body);
 
@@ -91,7 +153,9 @@ class ApiService {
     }
   }
 
+  // ─────────────────────────────────────────────
   // AUTH
+  // ─────────────────────────────────────────────
   static Future<UserModel?> login(
     String username,
     String password,
@@ -112,7 +176,9 @@ class ApiService {
     throw res['message'] ?? 'Login failed';
   }
 
+  // ─────────────────────────────────────────────
   // ENQUIRIES
+  // ─────────────────────────────────────────────
   static Future<Map<String, dynamic>> addEnquiry(
     Map<String, dynamic> data,
   ) {
@@ -142,7 +208,9 @@ class ApiService {
     return [];
   }
 
+  // ─────────────────────────────────────────────
   // BATCH REPORT
+  // ─────────────────────────────────────────────
   static Future<List<BatchReportModel>> getBatchReport(
     String date,
   ) async {
@@ -160,7 +228,9 @@ class ApiService {
     return [];
   }
 
+  // ─────────────────────────────────────────────
   // BATCHES
+  // ─────────────────────────────────────────────
   static Future<List<BatchModel>> getBatches() async {
 
     final res = await _get(AppConstants.batchesUrl);
@@ -198,7 +268,9 @@ class ApiService {
     );
   }
 
+  // ─────────────────────────────────────────────
   // MANAGERS
+  // ─────────────────────────────────────────────
   static Future<List<ManagerModel>> getManagers() async {
 
     final res = await _get(AppConstants.managersUrl);
@@ -236,3 +308,4 @@ class ApiService {
     );
   }
 }
+```
