@@ -1,3 +1,5 @@
+export 'batch_model.dart';
+export 'user_model.dart';
 // lib/models/enquiry_model.dart
 class EnquiryModel {
   final int id;
